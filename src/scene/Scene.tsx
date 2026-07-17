@@ -1,10 +1,12 @@
-import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { useCosmosStore } from '../state/store'
+import { CameraRig } from './CameraRig'
+import { CrystalShells } from './CrystalShell'
 import { Earth } from './Earth'
 import { Planet } from './Planet'
 import { RetrogradeMonitor } from './RetrogradeMonitor'
 import { SimulationDriver } from './SimulationDriver'
+import { Starfield } from './Starfield'
 import { TraceLine } from './TraceLine'
 import { VelocityVector } from './VelocityVector'
 
@@ -28,8 +30,10 @@ export function Scene() {
         {system.planets.map((planet) => (
           <VelocityVector key={planet.id} planet={planet} />
         ))}
+        <CrystalShells />
+        <Starfield />
       </group>
-      <OrbitControls makeDefault />
+      <CameraRig />
     </Canvas>
   )
 }
