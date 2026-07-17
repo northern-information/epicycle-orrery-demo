@@ -48,6 +48,38 @@ months for 60–80 days, Venus traces its five-petal rosette over eight
 years, and the outer planets' epicycle arms all secretly point with the
 mean Sun — the buried heliocentric truth of the system.
 
+## A note on history
+
+Ptolemy supplied a mathematical model; the literal solid crystalline
+spheres come from Aristotle and the medieval commentators. This project
+deliberately builds the **medieval synthesis** — Ptolemaic geometry inside
+Aristotelian machinery — because the premise is a universe where the model
+is physically true.
+
+## Vocabulary
+
+| Term | Meaning |
+| --- | --- |
+| deferent | large circle centered (nearly) on Earth |
+| epicycle | smaller circle riding the deferent; the planet rides it |
+| retrograde | apparent reversal of a planet's motion seen from Earth |
+| eccentric | circle whose center is offset from Earth (the Sun's device) |
+| aether / quintessence | the fifth element filling the heavens |
+| celestial spheres | transparent nested shells carrying the bodies |
+| sphere of the fixed stars | the eighth sphere, stars embedded in it |
+| Primum Mobile | outermost moving sphere, driving all within |
+| Empyrean | the realm beyond the physical universe |
+
+## Speculative roadmap
+
+The spheres are so far surfaces; the notes this project grew from imagine
+them as objects. Ideas, roughly in order:
+
+- shell thickness — render inner and outer surfaces, machinery between
+- visible bearings, seams, and gearing where sphere drives sphere
+- each sphere its own physical laws; no vacuum, aether filling all
+- the Empyrean: something beyond the Primum Mobile
+
 ## Layout
 
 ```
