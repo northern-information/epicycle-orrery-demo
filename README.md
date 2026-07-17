@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# epicycle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive simulation of a physically real Ptolemaic cosmos.
 
-Currently, two official plugins are available:
+Earth is fixed at the center. The planets are carried by literal celestial
+machinery — brass deferents and epicycles turning inside nested crystalline
+spheres — following the medieval synthesis of Ptolemy's orbital geometry and
+Aristotle's solid spheres. Space is architecture, not emptiness.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Running
 
 ```
+npm install
+npm run dev     # open the printed localhost URL
+npm run test    # sim core tests (vitest)
+```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Controls
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Orbit mode** — drag to orbit, scroll to zoom, right-drag to pan
+- **Fly mode** — WASD to move, R/F for up/down, drag to look; speed scales
+  with distance from Earth
+- **C** — toggle orbit/fly
+- The leva panel (top right) has play/pause, simulation speed, view toggles
+  (deferents, epicycles, traces, velocity vectors, retrograde highlighting,
+  crystal spheres), and every planet's radii, periods, and phases
+- The HUD (bottom left) shows the simulation calendar and which wanderers
+  are currently retrograde
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## The model
 
+Every body is a chain of uniformly rotating circles, evaluated in closed
+form — position is the Fourier-like sum Σ rᵢ·û(Θᵢ) and velocity is its exact
+analytic derivative, so retrograde detection (the sign of dλ/dt of apparent
+geocentric longitude) has no sampling error.
+
+Default parameters come from the Almagest: epicycle-to-deferent ratios
+(Mars 39;30 → 0.6583, Venus 43;10 → 0.7194, …), zodiacal periods on the
+deferents, synodic periods on the epicycles, and Mercury and Venus locked to
+the mean Sun. The Sun itself uses a counter-rotating arm — Ptolemy's
+eccentric via the Apollonius equivalence. Shell radii follow the *Planetary
+Hypotheses* nesting principle: no wasted space, each sphere's outer surface
+is the next sphere's inner surface.
+
+Because the historical parameters encode the real synodic relations, the
+right phenomena simply emerge: Mars turns retrograde roughly every 26
+months for 60–80 days, Venus traces its five-petal rosette over eight
+years, and the outer planets' epicycle arms all secretly point with the
+mean Sun — the buried heliocentric truth of the system.
+
+## Layout
+
+```
+src/sim/     pure TypeScript math — chains, retrograde, shells, presets
+src/state/   zustand store (+ the mutable per-frame clock)
+src/scene/   react-three-fiber components
+src/ui/      leva control panel and HUD
 ```

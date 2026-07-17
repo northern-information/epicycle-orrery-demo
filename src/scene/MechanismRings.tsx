@@ -40,6 +40,24 @@ export function Spoke({ length }: { length: number }) {
   )
 }
 
+/**
+ * Graduation tick marks engraved just inside a ring, astronomical-clock
+ * style: a mark every 5 degrees, a longer one every 30 (the zodiac signs).
+ */
+export function Ticks({ radius, color = BRASS }: { radius: number; color?: string }) {
+  const points = useMemo(() => {
+    const pts: [number, number, number][] = []
+    for (let deg = 0; deg < 360; deg += 5) {
+      const a = (deg / 180) * Math.PI
+      const inner = deg % 30 === 0 ? radius * 0.965 : radius * 0.985
+      pts.push([inner * Math.cos(a), inner * Math.sin(a), 0])
+      pts.push([radius * Math.cos(a), radius * Math.sin(a), 0])
+    }
+    return pts
+  }, [radius])
+  return <Line points={points} segments color={color} lineWidth={1} transparent opacity={0.35} />
+}
+
 /** The hub bearing at a rotation center. */
 export function Hub({ size }: { size: number }) {
   return (

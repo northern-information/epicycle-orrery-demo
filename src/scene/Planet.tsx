@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/immutability --
+   useFrame runs per rendered frame, outside React's render phase; mutating
+   Three.js objects there is the react-three-fiber idiom. */
 import { useFrame } from '@react-three/fiber'
 import { useRef, type RefObject } from 'react'
 import type { Group, MeshStandardMaterial } from 'three'
@@ -5,7 +8,7 @@ import { nodeAngle } from '../sim/chain'
 import { isRetrograde } from '../sim/retrograde'
 import type { PlanetConfig } from '../sim/types'
 import { clock, useCosmosStore } from '../state/store'
-import { Hub, Ring, Spoke } from './MechanismRings'
+import { Hub, Ring, Spoke, Ticks } from './MechanismRings'
 
 type GroupRefs = RefObject<(Group | null)[]>
 
@@ -43,6 +46,8 @@ function ChainLevel({
     <>
       {/* the circle is the joint's path: static at this level's anchor */}
       {showMechanism && <Ring radius={node.radius} />}
+      {/* zodiac graduations on the deferent, astronomical-clock style */}
+      {showMechanism && depth === 0 && <Ticks radius={node.radius} />}
       {/* a bearing where this circle rides its parent arm; Earth is the hub at depth 0 */}
       {showMechanism && depth > 0 && <Hub size={Math.max(0.04, node.radius * 0.02)} />}
       <group

@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/immutability --
+   useFrame runs per rendered frame, outside React's render phase; mutating
+   preallocated Three.js buffers there is the react-three-fiber idiom. */
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
