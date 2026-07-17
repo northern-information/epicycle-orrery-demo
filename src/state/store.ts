@@ -41,6 +41,7 @@ interface CosmosState {
   setCameraMode: (cameraMode: CameraMode) => void
   setToggle: (key: keyof ViewToggles, value: boolean) => void
   setChainValue: (planetId: string, nodeIndex: number, key: ChainKey, value: number) => void
+  setLockToMeanSun: (planetId: string, locked: boolean) => void
   setRetrogradeFlags: (flags: Record<string, boolean>) => void
   clearTraces: () => void
 }
@@ -71,6 +72,24 @@ export const useCosmosStore = create<CosmosState>()((set) => ({
       system: applyChainValue(state.system, planetId, nodeIndex, key, value),
       traceVersion: state.traceVersion + 1,
     })),
+  setLockToMeanSun: (planetId, locked) =>
+    set((state) => {
+      const sun = state.system.planets.find((planet) => planet.id === 'sun')
+      const planets = state.system.planets.map((planet) => {
+        if (planet.id !== planetId) return planet
+        const chain =
+          locked && sun
+            ? planet.chain.map((node, i) =>
+                i === 0 ? { ...node, periodDays: sun.chain[0].periodDays } : node,
+              )
+            : planet.chain
+        return { ...planet, lockToMeanSun: locked, chain }
+      })
+      return {
+        system: { ...state.system, planets, ...computeShells(planets) },
+        traceVersion: state.traceVersion + 1,
+      }
+    }),
   setRetrogradeFlags: (retrogradeFlags) => set({ retrogradeFlags }),
   clearTraces: () => set((state) => ({ traceVersion: state.traceVersion + 1 })),
 }))
