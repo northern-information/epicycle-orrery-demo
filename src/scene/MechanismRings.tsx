@@ -23,20 +23,26 @@ export function Ring({
     }
     return pts
   }, [radius, segments])
-  return <Line points={points} color={color} lineWidth={1.5} transparent opacity={opacity} />
+  return <Line points={points} color={color} lineWidth={1} transparent opacity={opacity} />
 }
 
 /**
  * A brass arm from a rotation center to the joint it carries. Lives inside
- * the rotating group, so it visibly turns like clockwork.
+ * the rotating group, so it visibly turns like clockwork. A screen-space
+ * 1px line, not geometry, so it stays hairline at any zoom.
  */
 export function Spoke({ length }: { length: number }) {
-  const thickness = Math.max(0.02, length * 0.004)
   return (
-    <mesh position-x={length / 2} rotation-z={Math.PI / 2}>
-      <cylinderGeometry args={[thickness, thickness, length, 8]} />
-      <meshStandardMaterial color={BRASS} metalness={0.9} roughness={0.35} />
-    </mesh>
+    <Line
+      points={[
+        [0, 0, 0],
+        [length, 0, 0],
+      ]}
+      color={BRASS}
+      lineWidth={1}
+      transparent
+      opacity={0.8}
+    />
   )
 }
 
