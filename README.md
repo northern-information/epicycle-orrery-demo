@@ -15,6 +15,10 @@ npm run dev     # open the printed localhost URL
 npm run test    # sim core tests (vitest)
 ```
 
+Pushes to `main` deploy to GitHub Pages via
+`.github/workflows/deploy-pages.yml`
+(https://northern-information.github.io/epicycle-orrery-demo/).
+
 ## Controls
 
 - **Orbit mode** — drag to orbit, scroll to zoom, right-drag to pan

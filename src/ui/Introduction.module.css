@@ -1,0 +1,131 @@
+.panel {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  /* Above the leva panel (z-index 1000), which covers narrow screens. */
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  width: min(380px, calc(100vw - 32px));
+  /* Leave room for the HUD in the bottom-left corner. */
+  max-height: calc(100dvh - 120px);
+  box-sizing: border-box;
+  color: #d9ceb0;
+  background: rgb(10 10 16 / 0.86);
+  border: 1px solid rgb(200 185 138 / 0.28);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(6px);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 12px 10px 18px;
+  border-bottom: 1px solid rgb(200 185 138 / 0.18);
+}
+
+.title {
+  margin: 0;
+  color: #f0e2b6;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #c8b98a;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #f0e2b6;
+  background: rgb(200 185 138 / 0.12);
+}
+
+.body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px 18px 18px;
+}
+
+.body p {
+  margin: 0 0 10px;
+}
+
+.body strong {
+  color: #f0e2b6;
+  font-weight: 600;
+}
+
+.lede {
+  color: #e8dcba;
+}
+
+.heading {
+  margin: 18px 0 6px;
+  color: #c8b98a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.body .hint {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgb(200 185 138 / 0.18);
+  color: #a79a76;
+  font-size: 12px;
+}
+
+.reopen {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  /* Above the leva panel (z-index 1000), which covers narrow screens. */
+  z-index: 1001;
+  padding: 8px 12px;
+  color: #c8b98a;
+  background: rgb(10 10 16 / 0.8);
+  border: 1px solid rgb(200 185 138 / 0.28);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.reopen:hover {
+  color: #f0e2b6;
+  border-color: rgb(200 185 138 / 0.5);
+}
+
+.close:focus-visible,
+.reopen:focus-visible {
+  outline: 2px solid #f0e2b6;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .panel,
+  .reopen {
+    background: #0a0a10;
+    backdrop-filter: none;
+  }
+}
